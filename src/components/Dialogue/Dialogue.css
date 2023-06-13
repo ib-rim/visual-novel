@@ -1,0 +1,30 @@
+.dialogue-box {
+    border: 8px solid black;
+    width: 500px;
+    height: 200px;
+    align-self: flex-end;
+    margin: 0 auto;
+    padding: 2.25em 1em 1em;
+    position: relative;
+    cursor: pointer;
+    background-color: white;
+    isolation: isolate;
+    user-select: none;
+}
+
+.character-portrait {
+    position: absolute;
+    height: 200px;
+    left: 0;
+    top: -200px;
+    z-index: -1;
+}
+
+.character-name {
+    position: absolute;
+    border: 8px solid black;
+    background-color: white;
+    top: -2em;
+    padding: 0.5em 1em;
+    font-weight: bold;
+}
