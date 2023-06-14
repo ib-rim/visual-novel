@@ -9,11 +9,7 @@ function Scene(props) {
 
     useEffect(() => {
         handleEvent(props.dialogue[eventNumber]);
-    }, []);
-
-    useEffect(() => {
-        handleEvent(props.dialogue[eventNumber]);
-    }, [eventNumber]);
+    }, [eventNumber, props.dialogue]);
 
     const handleClick = () => {
         let newEventNumber = eventNumber + 1;
