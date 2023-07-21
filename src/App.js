@@ -15,6 +15,7 @@ import grayfaceNeutral from './assets/img/grayface-neutral.png';
 function App() {
 
     const [showDialogue, setShowDialogue] = useState(false);
+    const [doTypewriter, setDoTypewriter] = useState(true);
 
     const [background, setBackground] = useState(scene1bg);
 
@@ -27,7 +28,7 @@ function App() {
     const [eventNumber, setEventNumber] = useState(0);
 
     const events = [
-        <Dialogue character={grayface} mood={"neutral"}>
+        <Dialogue key={1} character={grayface} mood={"neutral"} typewriter={doTypewriter}>
             {`
             Speech one sentence
             Speech one sentence
@@ -38,14 +39,14 @@ function App() {
             Speech one sentence
             `}
         </Dialogue>,
-        <Dialogue character={grayface} mood={"happy"}>
+        <Dialogue key={2} character={grayface} mood={"happy"} typewriter={doTypewriter}>
             {`
             Speech two sentence
             Speech two sentence
             Speech two sentence
             `}
         </Dialogue>,
-        <Dialogue character={grayface} mood={"happy"}>
+        <Dialogue key={3} character={grayface} mood={"happy"} typewriter={doTypewriter}>
             {`
             Speech three sentence
             Speech three sentence
@@ -60,9 +61,15 @@ function App() {
     }, [eventNumber]);
 
     const handleClick = () => {
-        let newEventNumber = eventNumber + 1;
-        if (newEventNumber < events.length) {
-            setEventNumber(newEventNumber);
+        if(doTypewriter) {
+            setDoTypewriter(false);
+        }
+        else {
+            setDoTypewriter(true);
+            let newEventNumber = eventNumber + 1;
+            if (newEventNumber < events.length) {
+                setEventNumber(newEventNumber);
+            }
         }
     }
 
