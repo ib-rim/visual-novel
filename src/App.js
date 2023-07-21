@@ -1,8 +1,10 @@
+import './App.css';
 import './reset.css';
+import { useEffect, useState } from "react";
+
 import Character from './Character';
 
 import Dialogue from './components/Dialogue/Dialogue';
-import Scene from './components/Scene/Scene';
 
 import scene1bg from './assets/img/drydock.png';
 
@@ -12,28 +14,78 @@ import grayfaceNeutral from './assets/img/grayface-neutral.png';
 
 function App() {
 
+    const [showDialogue, setShowDialogue] = useState(false);
+
+    const [background, setBackground] = useState(scene1bg);
+
     const grayface = new Character("Gray Face", grayfaceHappy, grayfaceSad, grayfaceNeutral);
 
     const startPuzzle = () => {
         alert("Puzzle started");
     }
 
-    const scene1Events = [
+    const [eventNumber, setEventNumber] = useState(0);
+
+    const events = [
         <Dialogue character={grayface} mood={"neutral"}>
-            First, I'm neutral.
+            {`
+            Speech one sentence
+            Speech one sentence
+            Speech one sentence
+            Speech one sentence
+            Speech one sentence
+            Speech one sentence
+            Speech one sentence
+            `}
         </Dialogue>,
         <Dialogue character={grayface} mood={"happy"}>
-            Secondly, I'm happy.
+            {`
+            Speech two sentence
+            Speech two sentence
+            Speech two sentence
+            `}
         </Dialogue>,
-        <Dialogue character={grayface} mood={"sad"}>
-            Thirdly, I'm sad.
+        <Dialogue character={grayface} mood={"happy"}>
+            {`
+            Speech three sentence
+            Speech three sentence
+            Speech three sentence
+        `}
         </Dialogue>,
         startPuzzle,
     ];
 
+    useEffect(() => {
+        handleEvent(events[eventNumber]);
+    }, [eventNumber]);
+
+    const handleClick = () => {
+        let newEventNumber = eventNumber + 1;
+        if (newEventNumber < events.length) {
+            setEventNumber(newEventNumber);
+        }
+    }
+
+    const handleEvent = (event) => {
+        if (typeof (event) === 'function') {
+            setShowDialogue(false);
+            event();
+        }
+        else {
+            setShowDialogue(true);
+        }
+    }
+
     return (
         <div className="App">
-            <Scene dialogue={scene1Events} background={scene1bg}/>
+            <div className="scene" onClick={() => handleClick()} style={{ backgroundImage: `url(${background})` }}>
+                {
+                    showDialogue ?
+                        events[eventNumber]
+                        :
+                        <></>
+                }
+            </div>
         </div>
     );
 }

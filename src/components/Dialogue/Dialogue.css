@@ -9,7 +9,6 @@
     cursor: pointer;
     background-color: white;
     isolation: isolate;
-    user-select: none;
 }
 
 .character-portrait {
